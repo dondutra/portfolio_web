@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Dutra | Files</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <nav class="nav-container sticky top-0 bg-[#14110F]/90 backdrop-blur-md z-50">
+        <div class="max-w-4xl mx-auto px-8 h-20 flex justify-between items-center">
+            <span class="mono font-bold text-lg tracking-tighter cursor-pointer" style="color: var(--accent-main);" onclick="showSection('home')">
+                > $HOME
+            </span>
+            <div class="flex space-x-8 mono text-xs uppercase tracking-widest">
+                <button onclick="showSection('home')" class="nav-link active" id="btn-home">Inicio</button>
+                <button onclick="showSection('about')" class="nav-link" id="btn-about">Sobre_mí</button>
+                <button onclick="showSection('blog')" class="nav-link" id="btn-blog">Write-ups</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-8 pt-16 pb-24">
+        
+        <section id="home" class="section active text-center">
+            <div class="mb-14">
+                <div class="w-24 h-24 mx-auto mb-8 overflow-hidden rounded-full border-2 shadow-lg" style="border-color: var(--accent-main);">
+                    <img src="img/logo.webp" alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <h1 id="typewriter-name" class="text-5xl font-bold mb-4 tracking-tight min-h-[1.2em]"></h1>
+                <p class="mono text-xs uppercase tracking-[0.4em]" style="color: var(--accent-main);">[ Digital Forensics Investigator ]</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-sm mx-auto">
+                <a href="https://www.linkedin.com/in/arturo-rd/" class="p-4 border border-[#34312D] rounded hover:border-[#0077b5] hover:text-[#0077b5] transition-all mono text-[10px] uppercase tracking-widest">LinkedIn</a>
+                <a href="https://app.hackthebox.com/public/users/3060769" class="p-4 border border-[#34312D] rounded hover:border-[#9fef00] hover:text-[#9fef00] transition-all mono text-[10px] uppercase tracking-widest">Hack The Box</a>
+                <a href="https://www.youtube.com/@arkty" class="p-4 border border-[#34312D] rounded hover:border-[#ff0000] hover:text-[#ff0000] transition-all mono text-[10px] uppercase tracking-widest">YouTube</a>
+                <a href="https://github.com/dondutra" class="p-4 border border-[#34312D] rounded hover:border-white hover:text-white transition-all mono text-[10px] uppercase tracking-widest">GitHub</a>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+
+            <h2 class="text-xl mono mb-8" style="color: var(--accent-main);">./identidad.sh</h2>
+
+            <div class="card-evidence p-8 md:p-12 rounded-sm">
+                <p class="text-xl font-light mb-6 leading-relaxed">
+                    Analista forense digital de
+                    <span style="color: var(--accent-main);">entornos comprometidos</span> especializado en la
+                    <span style="color: var(--accent-main);">recuperación de datos</span>.
+                </p>
+                <div class="text-sm space-y-4 opacity-70 leading-relaxed">
+                    <p>> Identificación y preservación de evidencias digitales.</p>
+                    <p>> Comprometido con la ética profesional y la cadena de custodia.</p>
+                </div>
+            </div>
+
+            <hr class="my-10 border-0 h-px" style="background-color: var(--border-soft);">
+
+            <div class="card-evidence p-8 md:p-12 rounded-sm">
+                <p class="text-xl font-light mb-6 leading-relaxed">
+                    Motivación
+                </p>
+                <div class="text-sm space-y-4 opacity-70 leading-relaxed">
+                    <p>> Cuando descubrí de niño que al "borrar" un archivo realmente no se destruye y que sigue ahí, se infundó en mí una paranoia que perdura hasta hoy.</p>
+                    <p>> Cuando apenas empezaba la carrera de Ingeniería Informática, una amiga cercana me pidió desoladamente que recuperase los archivos de su IPhone pues éste se había bloqueado definitivamente tras varias tentativas erróneas de acceso. Por aquel entonces desconocía cómo llevar a cabo la tarea. La impotencia que me provocó fue tal, que me impulsó a profundizar en este mundo lo máximo posible.</p>
+                </div>
+            </div>
+        
+            <hr class="my-10 border-0 h-px" style="background-color: var(--border-soft);">
+
+            <div class="card-evidence p-8 md:p-12 rounded-sm">
+                <p class="text-xl font-light mb-6 leading-relaxed">
+                    Otras Aficiones
+                </p>
+                <div class="text-sm space-y-4 opacity-70 leading-relaxed">
+                    <p>> Me crié bilingüe <span class="emoji">🇪🇸 🇧🇷</span> y siempre me gustaron los idiomas. Además de los nativos hablo con fluidez <span class="emoji">🇺🇸</span> y estoy en proceso de aprendizaje con <span class="emoji">🇫🇷 🇯🇵</span>.</p>
+                    <p>> Para mí, la salud es lo más importante: por ello mantengo y disfruto una rutina de gimnasio y natación.</p>
+                    <p>> Me encanta la docencia, por eso llevo un canal de
+                        <span style="color: var(--accent-main);"><a href="https://www.youtube.com/@arkty">YouTube</a></span> donde enseño diversos temas de mi interés.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="blog" class="section">
+            <h2 class="text-xl mono mb-8" style="color: var(--accent-main);">./investigaciones</h2>
+            <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </section>
+
+        <section id="post-viewer" class="section">
+            <button onclick="showSection('blog')" class="mb-10 mono text-[10px] uppercase tracking-widest flex items-center group" style="color: var(--text-muted);">
+                <span class="mr-2 transition-transform group-hover:-translate-x-2"><-</span> Volver al registro
+            </button>
+            <div id="post-content" class="card-evidence p-8 md:p-12 rounded-sm shadow-2xl"></div>
+        </section>
+
+    </main>
+
+    <footer class="p-10 border-t border-[#34312D] text-center">
+        <p class="mono text-[9px] uppercase tracking-[0.4em]" style="color: var(--text-muted);">
+            Session: <span id="timestamp"></span> | Status: <span style="color: var(--accent-main);">Encrypted</span>
+        </p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
