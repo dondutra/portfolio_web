@@ -3,8 +3,13 @@ const MI_NOMBRE = "Don Dutra";
 
 // LISTADO DE INVESTIGACIONES
 const postIndex = [
-    { id: '1', file: 'posts/sherlock-1.md', tag: 'HTB', titulo: 'Caso Tracer', desc: 'Análisis de intrusión persistente.' },
-    { id: '2', file: 'posts/memoria.md', tag: 'LAB', titulo: 'Análisis RAM', desc: 'Dumping de procesos ocultos.' }
+    { 
+        id: '1', 
+        file: 'posts/UNI/1_1/UNI_1_1.md', 
+        tag: 'UNI', 
+        titulo: 'Volcado y Análisis de Memoria del Proceso MEMPASS', 
+        desc: 'Tarea 1.1 para la asignatura Auditoría Informática II.' 
+    },
 ];
 
 // EFECTO TERMINAL (TYPEWRITER)
@@ -61,12 +66,35 @@ function cargarListado() {
 async function leerPost(filePath) {
     try {
         const response = await fetch(filePath);
-        if (!response.ok) throw new Error();
-        const text = await response.text();
-        document.getElementById('post-content').innerHTML = marked.parse(text);
+        if (!response.ok) throw new Error("404"); // Solo lanza error si el fetch falla
+        let text = await response.text();
+
+        const baseUrl = filePath.substring(0, filePath.lastIndexOf('/') + 1);
+        const renderer = new marked.Renderer();
+        
+        // Nueva sintaxis para imágenes: se recibe un objeto { href, title, text }
+        renderer.image = ({ href, title, text }) => {
+            const fullPath = href.startsWith('http') ? href : baseUrl + href;
+            return `<img src="${fullPath}" alt="${text || ''}" class="my-8 rounded border border-[#34312D] shadow-lg mx-auto max-w-full">`;
+        };
+
+        // Nueva sintaxis para enlaces: se recibe un objeto { href, title, text }
+        renderer.link = ({ href, title, text }) => {
+            const isExternal = href.startsWith('http');
+            const fullPath = isExternal ? href : baseUrl + href;
+            const downloadAttr = href.toLowerCase().endsWith('.zip') ? 'download' : '';
+            return `<a href="${fullPath}" ${downloadAttr} target="_blank" class="text-[#00ff41] underline hover:opacity-80 transition-opacity">${text}</a>`;
+        };
+
+        document.getElementById('post-content').innerHTML = marked.parse(text, { renderer });
         showSection('post-viewer');
     } catch (e) {
-        document.getElementById('post-content').innerHTML = `<div class="mono text-xs text-red-400">[!] ARCHIVO_NO_ENCONTRADO</div>`;
+        console.error("Error cargando el post:", e);
+        const errorMsg = e.message === "404" 
+            ? `[!] ERROR: ARCHIVO_NO_ENCONTRADO en ${filePath}` 
+            : `[!] ERROR_DE_SINTAXIS: Consulta la consola del navegador.`;
+        
+        document.getElementById('post-content').innerHTML = `<div class="mono text-xs text-red-400">${errorMsg}</div>`;
         showSection('post-viewer');
     }
 }
