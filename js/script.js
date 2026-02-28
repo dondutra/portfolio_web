@@ -5,10 +5,17 @@ const MI_NOMBRE = "Don Dutra";
 const postIndex = [
     { 
         id: '1', 
-        file: 'posts/UNI/1_1/UNI_1_1.md', 
+        file: 'posts/UNI/UNI_1_1.pdf', 
         tag: 'UNI', 
         titulo: 'Volcado y Análisis de Memoria del Proceso MEMPASS', 
         desc: 'Tarea 1.1 para la asignatura Auditoría Informática II.' 
+    },
+    { 
+        id: '2', 
+        file: 'posts/UNI/UNI_1_2.pdf', 
+        tag: 'UNI', 
+        titulo: 'Análisis de Metadatos', 
+        desc: 'Tarea 1.2 para la asignatura Auditoría Informática II.' 
     },
 ];
 
@@ -64,21 +71,37 @@ function cargarListado() {
 
 // CARGAR Y CONVERTIR MARKDOWN
 async function leerPost(filePath) {
+    const container = document.getElementById('post-content');
+    
+    // CASO PDF
+    if (filePath.toLowerCase().endsWith('.pdf')) {
+        container.innerHTML = `
+            <div class="pdf-container w-full" style="height: 80vh;">
+                <iframe 
+                    src="${filePath}#toolbar=0&navpanes=0" 
+                    class="w-full h-full rounded border border-[#34312D]" 
+                    frameborder="0">
+                </iframe>
+            </div>
+        `;
+        showSection('post-viewer');
+        return;
+    }
+
+    // CASO MARKDOWN (Lógica original)
     try {
         const response = await fetch(filePath);
-        if (!response.ok) throw new Error("404"); // Solo lanza error si el fetch falla
+        if (!response.ok) throw new Error("404");
         let text = await response.text();
 
         const baseUrl = filePath.substring(0, filePath.lastIndexOf('/') + 1);
         const renderer = new marked.Renderer();
         
-        // Nueva sintaxis para imágenes: se recibe un objeto { href, title, text }
         renderer.image = ({ href, title, text }) => {
             const fullPath = href.startsWith('http') ? href : baseUrl + href;
             return `<img src="${fullPath}" alt="${text || ''}" class="my-8 rounded border border-[#34312D] shadow-lg mx-auto max-w-full">`;
         };
 
-        // Nueva sintaxis para enlaces: se recibe un objeto { href, title, text }
         renderer.link = ({ href, title, text }) => {
             const isExternal = href.startsWith('http');
             const fullPath = isExternal ? href : baseUrl + href;
@@ -86,7 +109,7 @@ async function leerPost(filePath) {
             return `<a href="${fullPath}" ${downloadAttr} target="_blank" class="text-[#00ff41] underline hover:opacity-80 transition-opacity">${text}</a>`;
         };
 
-        document.getElementById('post-content').innerHTML = marked.parse(text, { renderer });
+        container.innerHTML = marked.parse(text, { renderer });
         showSection('post-viewer');
     } catch (e) {
         console.error("Error cargando el post:", e);
@@ -94,7 +117,7 @@ async function leerPost(filePath) {
             ? `[!] ERROR: ARCHIVO_NO_ENCONTRADO en ${filePath}` 
             : `[!] ERROR_DE_SINTAXIS: Consulta la consola del navegador.`;
         
-        document.getElementById('post-content').innerHTML = `<div class="mono text-xs text-red-400">${errorMsg}</div>`;
+        container.innerHTML = `<div class="mono text-xs text-red-400">${errorMsg}</div>`;
         showSection('post-viewer');
     }
 }
